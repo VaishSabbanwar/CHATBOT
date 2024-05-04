@@ -18,11 +18,12 @@ const createChatLi = (message, className) => {
     return chatLi; // return chat <li> element
 }
 
-const generateResponse = (chatElement) => {
-    const API_URL = "https://api.openai.com/v1/chat/completions";
+const generateResponse = async (chatElement) => {
+    const API_URL = "https://api.openai.com/v1/answers"; // Update API endpoint
+    const question = userMessage; // Use the user's message as the question
     const messageElement = chatElement.querySelector("p");
 
-    // Define the properties and message for the API request
+    // Define the properties and question for the API request
     const requestOptions = {
         method: "POST",
         headers: {
@@ -30,18 +31,30 @@ const generateResponse = (chatElement) => {
             "Authorization": `Bearer ${API_KEY}`
         },
         body: JSON.stringify({
-            model: "gpt-3.5-turbo",
-            messages: [{ role: "user", content: userMessage }],
+            model: "text-davinci-003", // Use the model appropriate for question answering
+            question: question,
+            examples_context: "In 2023, a new law was passed...", // Add context examples if needed
+            examples: [
+                ["What is the main topic of the article?", "The main topic is about the new law passed in 2023."],
+                ["Who signed the law?", "The law was signed by the president."],
+                // Add more examples if needed
+            ]
         })
     }
 
-    // Send POST request to API, get response and set the reponse as paragraph text
-    fetch(API_URL, requestOptions).then(res => res.json()).then(data => {
-        messageElement.textContent = data.choices[0].message.content.trim();
-    }).catch(() => {
+    try {
+        // Send POST request to API
+        const response = await fetch(API_URL, requestOptions);
+        const data = await response.json();
+        const botResponse = data.answers[0]; // Get the first answer as the bot's response
+        messageElement.textContent = botResponse; // Set the bot's response as paragraph text
+    } catch (error) {
+        console.error("Error:", error);
         messageElement.classList.add("error");
         messageElement.textContent = "Oops! Something went wrong. Please try again.";
-    }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+    } finally {
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+    }
 }
 
 const handleChat = () => {
