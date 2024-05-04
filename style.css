@@ -9,7 +9,22 @@
 }
 
 body {
-    background-color: black;
+    background-image: url('8943377.png');
+    background-size: cover;
+    /* This property ensures the image covers the entire background */
+    background-repeat: no-repeat;
+    /* This property ensures the image doesn't repeat */
+}
+
+img {
+    width: 50px;
+    /* Adjust the width as needed */
+    height: auto;
+    /* Automatically adjust the height to maintain aspect ratio */
+    margin: 20px;
+    /* Add margin for spacing */
+    display: block;
+    /* Make sure it's displayed as a block element */
 }
 
 .chatbot-toggler {
