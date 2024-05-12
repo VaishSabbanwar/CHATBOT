@@ -9,7 +9,7 @@
 }
 
 body {
-    background-image: url('8943377.png');
+    background-image: url('New-Zealand-Education-System\ \(1\).png');
     background-size: cover;
     /* This property ensures the image covers the entire background */
     background-repeat: no-repeat;
@@ -40,7 +40,7 @@ img {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: #724ae8;
+    background: #da74baea;
     transition: all 0.2s ease;
 }
 
@@ -49,7 +49,7 @@ body.show-chatbot .chatbot-toggler {
 }
 
 .chatbot-toggler span {
-    color: #fff;
+    color: #f0eef1;
     position: absolute;
 }
 
